@@ -31,8 +31,8 @@ companies = {
     "XPeng": xpeng,
 }
 
-# Load the Natural Earth shapefile
-world = gpd.read_file("C:/Users/tumbr/Downloads/data_countries/ne_110m_admin_0_countries.shp")
+# Load the Natural Earth shapefile from Caggle
+world = gpd.read_file("ne_110m_admin_0_countries.shp")
 
 print("Columns in shapefile:", world.columns)
 
