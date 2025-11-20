@@ -32,13 +32,14 @@ companies = {
 }
 
 # Load the Natural Earth shapefile from Caggle
-world = gpd.read_file("ne_110m_admin_0_countries.shp")
+world = gpd.read_file("data/ne_110m_admin_0_countries.shp")
 
 print("Columns in shapefile:", world.columns)
 
 # Detect which column contains country names
 possible_cols = ["ADMIN", "ADMIN_NAME", "NAME", "SOVEREIGNT", "NAME_LONG"]
 
+#Reset the column name to "name", based on which it could be
 country_col = None
 for col in possible_cols:
     if col in world.columns:
@@ -47,8 +48,6 @@ for col in possible_cols:
 
 if country_col is None:
     raise ValueError("Could not find a country-name column!")
-
-print("Using country column:", country_col)
 
 # Rename to standard name
 world = world.rename(columns={country_col: "name"})
@@ -73,13 +72,13 @@ n_bins = 100
 cmap = mcolors.LinearSegmentedColormap.from_list('custom', colors, N=n_bins)
 
 #Plot
-plt.figure(figsize=(20,10))
+plt.figure(figsize=(200,100))
 world.plot(column="count",
            cmap=cmap,
            legend=True,
            edgecolor="black",
            linewidth=0.3,
            vmin=0)  # Ensures 0 maps to white
-plt.title("Number of Portfolio Companies Operating in Each Country", fontsize=16)
+plt.title("Number of Portfolio Companies \nOperating in Each Country", fontsize=16)
 plt.axis("off")
-plt.show()
+plt.savefig("no_of_operating.jpg",)
